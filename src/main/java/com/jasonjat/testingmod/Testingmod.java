@@ -33,6 +33,7 @@ public class Testingmod implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tnt_bow"), TNT_BOW);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "explosive_arrow"), EXPLOSIVE_ARROW);
 
+        System.out.println("Hello this is a line of text.");
     }
 
 }
