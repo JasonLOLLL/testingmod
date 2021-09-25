@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "testingmod",
+  "version": "${version}",
+  "name": "Testingmod",
+  "description": "",
+  "authors": [
+    "JasonJat"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/testingmod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.jasonjat.testingmod.client.TestingmodClient"
+    ],
+    "main": [
+      "com.jasonjat.testingmod.Testingmod"
+    ]
+  },
+  "mixins": [
+    "testingmod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.6",
+    "fabric": "*",
+    "minecraft": "1.17.1"
+  }
+}
