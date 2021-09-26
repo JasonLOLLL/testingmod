@@ -19,7 +19,7 @@ public class Gui extends LightweightGuiDescription {
         });
 
         WButton button2 = new WButton(new LiteralText("Hi guys"));
-        root.add(button2, 20,20,20,20);
+        root.add(button2, 0,2,20,20);
 
         button2.setOnClick(() -> {
             System.out.println("Client only, but server if used packets.");
