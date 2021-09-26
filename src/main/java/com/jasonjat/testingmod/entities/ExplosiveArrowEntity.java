@@ -22,8 +22,8 @@ public class ExplosiveArrowEntity extends ArrowEntity {
         super(world, x, y, z);
     }
 
-    public ExplosiveArrowEntity(World world, LivingEntity owner) {
-        super(world, owner);
+    public ExplosiveArrowEntity(World world, LivingEntity shooter) {
+        super(world, shooter);
     }
 
 
@@ -32,7 +32,7 @@ public class ExplosiveArrowEntity extends ArrowEntity {
         return new ItemStack(Testingmod.EXPLOSIVE_ARROW);
     }
 
-    public void tick() {
+    public void tick() { //updates
         super.tick();
         if (this.world.isClient && !this.inGround) {
             this.world.addParticle(ParticleTypes.INSTANT_EFFECT, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
@@ -40,6 +40,7 @@ public class ExplosiveArrowEntity extends ArrowEntity {
 
     }
 
+    @Override
     public void onHit(LivingEntity target) {
         super.onHit(target);
         StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.GLOWING, this.duration, 0);
