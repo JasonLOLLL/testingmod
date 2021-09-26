@@ -4,6 +4,7 @@ import com.jasonjat.testingmod.entities.ExplosiveArrowEntity;
 import com.jasonjat.testingmod.items.ExplosiveArrowItem;
 import com.jasonjat.testingmod.items.TNT_Bow;
 import com.jasonjat.testingmod.items.Wand;
+import com.jasonjat.testingmod.modpackets.ModPacketsC2S;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -33,7 +34,7 @@ public class Testingmod implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tnt_bow"), TNT_BOW);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "explosive_arrow"), EXPLOSIVE_ARROW);
 
-
+        ModPacketsC2S.register();
     }
 
 }
