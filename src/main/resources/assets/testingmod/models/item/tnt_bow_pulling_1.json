@@ -1,6 +1,6 @@
 {
   "parent": "item/bow",
   "textures": {
-    "layer0": "items/tnt_bow_pulling_1"
+    "layer0": "testingmod:items/tnt_bow_pulling_1"
   }
 }
