@@ -1,15 +1,12 @@
 package com.jasonjat.testingmod.entities;
 
 import com.jasonjat.testingmod.Testingmod;
-import com.jasonjat.testingmod.items.ExplosiveArrowItem;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.world.World;
@@ -46,6 +43,8 @@ public class ExplosiveArrowEntity extends PersistentProjectileEntity {
         super.onHit(target);
         StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.GLOWING, this.duration, 0);
         target.addStatusEffect(statusEffectInstance, this.getEffectCause());
+
+        System.out.println("This hit something!");
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
