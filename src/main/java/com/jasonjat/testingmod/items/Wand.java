@@ -26,13 +26,13 @@ public class Wand extends Item {
         super(new Item.Settings().group(ItemGroup.TOOLS).maxCount(1));
     }
 
-//    @Override
-//    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-//        if (hand==Hand.MAIN_HAND && world.isClient) {
-//            MinecraftClient.getInstance().setScreen(new PreScreen(new Gui()));
-//        }
-//        return super.use(world, user, hand);
-//    }
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        if (hand==Hand.MAIN_HAND && world.isClient) {
+            MinecraftClient.getInstance().setScreen(new PreScreen(new Gui()));
+        }
+        return super.use(world, user, hand);
+    }
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
