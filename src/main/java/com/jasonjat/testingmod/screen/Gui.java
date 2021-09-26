@@ -24,7 +24,7 @@ public class Gui extends LightweightGuiDescription {
         });
 
         WButton button2 = new WButton(new LiteralText("Hi guys"));
-        root.add(button2, 0,2,20,20);
+        root.add(button2, 0,1,20,20);
 
         button2.setOnClick(() -> {
             PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
