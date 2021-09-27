@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    " R ",
+    " R "
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:tnt"
+    },
+    "R": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "testingmod:tnt_pickaxe",
+    "count": 1
+  }
+}

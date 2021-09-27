@@ -9,12 +9,14 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class ExplosiveArrowEntityRenderer extends ProjectileEntityRenderer<ExplosiveArrowEntity> {
+    public static final Identifier TEXTURE = new Identifier("textures/entity/projectiles/explosive_arrow.png");
+
     public ExplosiveArrowEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
     }
 
-    @Override
     public Identifier getTexture(ExplosiveArrowEntity entity) {
-        return new Identifier("textures/entity/projectiles/spectral_arrow.png");
+        System.out.println("texture is being called");
+        return TEXTURE;
     }
 }

@@ -1,6 +1,7 @@
 package com.jasonjat.testingmod.entities;
 
 import com.jasonjat.testingmod.Testingmod;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -9,7 +10,9 @@ import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 
 public class ExplosiveArrowEntity extends ArrowEntity {
     private int duration = 200;
@@ -49,6 +52,14 @@ public class ExplosiveArrowEntity extends ArrowEntity {
         System.out.println("This hit something!");
     }
 
+    @Override
+    protected void onBlockHit(BlockHitResult bhr) {
+        super.onBlockHit(bhr);
+
+        world.createExplosion(this, bhr.getBlockPos().getX(), bhr.getBlockPos().getY(), bhr.getBlockPos().getZ(), 10f, Explosion.DestructionType.DESTROY);
+        this.discard();
+    }
+
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         if (nbt.contains("Duration")) {
@@ -60,5 +71,11 @@ public class ExplosiveArrowEntity extends ArrowEntity {
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         nbt.putInt("Duration", this.duration);
+    }
+
+    @Override
+    public int getColor() {
+        System.out.println("getColor() Called");
+        return 2;
     }
 }

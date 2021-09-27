@@ -1,5 +1,7 @@
 {
   "item.testingmod.wand": "Wand",
   "item.testingmod.tnt_bow": "TNT Bow",
-  "item.testingmod.explosive_arrow": "Explosive Arrow"
+  "item.testingmod.explosive_arrow": "Explosive Arrow",
+  "item.testingmod.tnt_sword": "TNT Sword",
+  "item.testingmod.tnt_pickaxe": "TNT Pickaxe"
 }

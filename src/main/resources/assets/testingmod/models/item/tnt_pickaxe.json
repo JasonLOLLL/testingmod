@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "testingmod:items/tnt_pickaxe"
+  }
+}

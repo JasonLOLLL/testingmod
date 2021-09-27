@@ -6,6 +6,8 @@ import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.pack.ResourcePackOrganizer;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.LiteralText;
 
@@ -20,7 +22,12 @@ public class Gui extends LightweightGuiDescription {
         root.add(button, 0, 0, 20, 20);
 
         button.setOnClick(() -> {
-            System.out.println("LOL");
+            PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+            buf.writeString("Drop");
+
+            ClientPlayNetworking.send(ModPackets.GUI_PACKET, buf);
+
+            MinecraftClient.getInstance().setScreen(null);
         });
 
         WButton button2 = new WButton(new LiteralText("Hi guys"));
@@ -32,7 +39,7 @@ public class Gui extends LightweightGuiDescription {
             System.out.println("Client only, but server if used packets.");
             ClientPlayNetworking.send(ModPackets.GUI_PACKET, buf);
         });
-
-
     }
+
+
 }

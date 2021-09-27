@@ -7,4 +7,9 @@ public class PreScreen extends CottonClientScreen {
     public PreScreen(GuiDescription description) {
         super(description);
     }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
 }
