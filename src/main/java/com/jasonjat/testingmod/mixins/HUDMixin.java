@@ -1,6 +1,5 @@
 package com.jasonjat.testingmod.mixins;
 
-import com.jasonjat.testingmod.Testingmod;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -8,10 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,15 +27,21 @@ public abstract class HUDMixin extends DrawableHelper{
         if (client.player != null && client.world != null) {
             TextRenderer textRenderer = getTextRenderer();
 
-            textRenderer.drawWithShadow(matrixStack, "Hello sir", 10, 10, 0xFFFFFF);
-            //idk what this does?
-//            RenderSystem.enableBlend();
+//            textRenderer.drawWithShadow(matrixStack, "Hello sir", 10, 10, 0xFFFFFF);
+            RenderSystem.enableBlend();
 
             // points to a sprite texture
+            RenderSystem.setShaderTexture(0, DrawableHelper.GUI_ICONS_TEXTURE);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
 
-            // renders the texture on screen? idk
-//            drawSprite(matrixStack, 20, 20, 0, 10, 10, texture);
+
+            int s = 0;
+            int r = 0;
+            int t = 0;
+
+            this.drawTexture(matrixStack, s, r, 0, 94, 18, 18);
+            this.drawTexture(matrixStack, s, r + 18 - t, 18, 112 - t, 18, t);
         }
     }
 }
