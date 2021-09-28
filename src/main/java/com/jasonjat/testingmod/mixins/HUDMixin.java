@@ -27,21 +27,26 @@ public abstract class HUDMixin extends DrawableHelper{
         if (client.player != null && client.world != null) {
             TextRenderer textRenderer = getTextRenderer();
 
-//            textRenderer.drawWithShadow(matrixStack, "Hello sir", 10, 10, 0xFFFFFF);
+            textRenderer.drawWithShadow(matrixStack, "Hello sir", 10, 10, 0xFFFFFF);
+            matrixStack.push();
             RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
 
-            // points to a sprite texture
+            // points to a sprite texture or atlas
             RenderSystem.setShaderTexture(0, DrawableHelper.GUI_ICONS_TEXTURE);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
 
 
-            int s = 0;
-            int r = 0;
+            int s = 22;
+            int r = 22;
             int t = 0;
 
+            // renders texture on screen
             this.drawTexture(matrixStack, s, r, 0, 94, 18, 18);
             this.drawTexture(matrixStack, s, r + 18 - t, 18, 112 - t, 18, t);
+            RenderSystem.disableBlend();
+            matrixStack.pop();
         }
     }
 }
