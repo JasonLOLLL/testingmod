@@ -15,6 +15,14 @@ public class ModPacketsC2S {
 
     public static void register() {
         ServerPlayNetworking.registerGlobalReceiver(ModPackets.GUI_PACKET, ModPacketsC2S::guiThing);
+        ServerPlayNetworking.registerGlobalReceiver(ModPackets.KEYBIND_PACKET, ModPacketsC2S::keybind);
+    }
+
+    private static void keybind(MinecraftServer minecraftServer, ServerPlayerEntity serverPlayerEntity, ServerPlayNetworkHandler serverPlayNetworkHandler, PacketByteBuf packetByteBuf, PacketSender packetSender) {
+        String message = packetByteBuf.readString();
+        if (message.equals("C")) {
+            serverPlayerEntity.setOnFireFor(1);
+        }
     }
 
     private static void spawnArrow(MinecraftServer minecraftServer, ServerPlayerEntity serverPlayerEntity, ServerPlayNetworkHandler serverPlayNetworkHandler, PacketByteBuf packetByteBuf, PacketSender packetSender) {
@@ -32,4 +40,6 @@ public class ModPacketsC2S {
             player.kill();
         }
     }
+
+
 }

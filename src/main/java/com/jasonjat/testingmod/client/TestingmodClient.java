@@ -2,6 +2,7 @@ package com.jasonjat.testingmod.client;
 
 import com.jasonjat.testingmod.Testingmod;
 import com.jasonjat.testingmod.renderers.ExplosiveArrowEntityRenderer;
+import com.jasonjat.testingmod.renderers.PenguinEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,6 +17,8 @@ public class TestingmodClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityRendererRegistry.register(Testingmod.EXPLOSIVE_ARROW_ENTITY, ExplosiveArrowEntityRenderer::new);
 
+        Keybinds.register();
+
         // stuff for detecting bow pulling... predicates
         FabricModelPredicateProviderRegistry.register(Testingmod.TNT_BOW, new Identifier("pull"), (itemStack, clientWorld, livingEntity, x) -> {
             if (livingEntity == null) {
@@ -29,6 +32,11 @@ public class TestingmodClient implements ClientModInitializer {
                 return 0.0F;
             }
             return livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
+        });
+
+
+        EntityRendererRegistry.register(Testingmod.PENGUIN, (context) -> {
+            return new PenguinEntityRenderer(context);
         });
     }
 }
