@@ -1,5 +1,6 @@
 package com.jasonjat.testingmod;
 
+import com.jasonjat.testingmod.entities.EnderArrowEntity;
 import com.jasonjat.testingmod.entities.ExplosiveArrowEntity;
 import com.jasonjat.testingmod.entities.PenguinEntity;
 import com.jasonjat.testingmod.items.*;
@@ -25,11 +26,20 @@ public class Testingmod implements ModInitializer {
     public static final Item EXPLOSIVE_ARROW = new ExplosiveArrowItem();
     public static final Item TNT_SWORD = new TNTSword();
     public static final Item TNT_PICKAXE = new TNTPickaxe();
+    public static final Item MINER_PICKAXE = new MinerPickaxe();
+    public static final Item ENDER_ARROW = new EnderArrowItem();
+
 
     public static final EntityType<ExplosiveArrowEntity> EXPLOSIVE_ARROW_ENTITY = Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier(MOD_ID, "explosive_arrow"),
             FabricEntityTypeBuilder.<ExplosiveArrowEntity>create(SpawnGroup.MISC, ExplosiveArrowEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build()
+    );
+
+    public static final EntityType<EnderArrowEntity> ENDER_ARROW_ENTITY = Registry.register(
+            Registry.ENTITY_TYPE,
+            new Identifier(MOD_ID, "ender_arrow"),
+            FabricEntityTypeBuilder.<EnderArrowEntity>create(SpawnGroup.MISC, EnderArrowEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build()
     );
 
     public static final EntityType<PenguinEntity> PENGUIN = Registry.register(
@@ -48,6 +58,9 @@ public class Testingmod implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "explosive_arrow"), EXPLOSIVE_ARROW);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tnt_sword"), TNT_SWORD);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tnt_pickaxe"), TNT_PICKAXE);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "miner_pickaxe"), MINER_PICKAXE);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "ender_arrow"), ENDER_ARROW);
+
 
         FabricDefaultAttributeRegistry.register(PENGUIN, PenguinEntity.createMobAttributes());
         EntityModelLayerRegistry.registerModelLayer(MODEL_PENGUIN_LAYER, PenguinEntityModel::getTexturedModelData);

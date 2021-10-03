@@ -1,6 +1,7 @@
 package com.jasonjat.testingmod.client;
 
 import com.jasonjat.testingmod.Testingmod;
+import com.jasonjat.testingmod.renderers.EnderArrowEntityRenderer;
 import com.jasonjat.testingmod.renderers.ExplosiveArrowEntityRenderer;
 import com.jasonjat.testingmod.renderers.PenguinEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
@@ -16,6 +17,7 @@ public class TestingmodClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityRendererRegistry.register(Testingmod.EXPLOSIVE_ARROW_ENTITY, ExplosiveArrowEntityRenderer::new);
+        EntityRendererRegistry.register(Testingmod.ENDER_ARROW_ENTITY, EnderArrowEntityRenderer::new);
 
         Keybinds.register();
 
@@ -35,8 +37,6 @@ public class TestingmodClient implements ClientModInitializer {
         });
 
 
-        EntityRendererRegistry.register(Testingmod.PENGUIN, (context) -> {
-            return new PenguinEntityRenderer(context);
-        });
+        EntityRendererRegistry.register(Testingmod.PENGUIN, PenguinEntityRenderer::new);
     }
 }

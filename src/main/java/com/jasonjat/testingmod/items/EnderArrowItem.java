@@ -1,7 +1,6 @@
 package com.jasonjat.testingmod.items;
 
 import com.jasonjat.testingmod.entities.EnderArrowEntity;
-import com.jasonjat.testingmod.entities.ExplosiveArrowEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ArrowItem;
@@ -10,16 +9,14 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ExplosiveArrowItem extends ArrowItem {
-    public ExplosiveArrowItem() {
+public class EnderArrowItem extends ArrowItem {
+    public EnderArrowItem() {
         super(new Item.Settings().maxCount(64).group(ItemGroup.COMBAT));
     }
 
     public PersistentProjectileEntity createArrow(World world, ItemStack stack, LivingEntity shooter) {
-        System.out.println("createArrow() called!");
-        ExplosiveArrowEntity arrowEntity = new ExplosiveArrowEntity(world, shooter);
+        EnderArrowEntity arrowEntity = new EnderArrowEntity(world, shooter);
         arrowEntity.setDamage(100);
-        arrowEntity.initFromStack(stack);
         return arrowEntity;
     }
 }

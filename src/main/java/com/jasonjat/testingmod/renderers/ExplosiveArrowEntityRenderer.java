@@ -1,5 +1,6 @@
 package com.jasonjat.testingmod.renderers;
 
+import com.jasonjat.testingmod.entities.EnderArrowEntity;
 import com.jasonjat.testingmod.entities.ExplosiveArrowEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

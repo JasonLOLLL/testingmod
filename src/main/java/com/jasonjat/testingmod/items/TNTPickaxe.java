@@ -15,12 +15,15 @@ public class TNTPickaxe extends PickaxeItem {
 
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-        world.createExplosion(miner, pos.getX(), pos.getY(), pos.getZ(), power, Explosion.DestructionType.DESTROY);
-        world.createExplosion(miner, pos.getX(), pos.getY()-5, pos.getZ(), power, Explosion.DestructionType.DESTROY);
-        world.createExplosion(miner, pos.getX(), pos.getY()-10, pos.getZ(), power, Explosion.DestructionType.DESTROY);
-        world.createExplosion(miner, pos.getX(), pos.getY()-15, pos.getZ(), power, Explosion.DestructionType.DESTROY);
-        world.createExplosion(miner, pos.getX(), pos.getY()-20, pos.getZ(), power, Explosion.DestructionType.DESTROY);
-        world.createExplosion(miner, pos.getX(), pos.getY()-25, pos.getZ(), power, Explosion.DestructionType.DESTROY);
+        Explosion.DestructionType d = Explosion.DestructionType.DESTROY;
+
+        world.createExplosion(miner, pos.getX(), pos.getY(), pos.getZ(), power, d);
+        world.createExplosion(miner, pos.getX(), pos.getY()-5, pos.getZ(), power, d);
+        world.createExplosion(miner, pos.getX(), pos.getY()-10, pos.getZ(), power, d);
+        world.createExplosion(miner, pos.getX(), pos.getY()-15, pos.getZ(), power, d);
+        world.createExplosion(miner, pos.getX(), pos.getY()-20, pos.getZ(), power, d);
+        world.createExplosion(miner, pos.getX(), pos.getY()-25, pos.getZ(), power, d);
+
         return super.postMine(stack, world, state, pos, miner);
     }
 }

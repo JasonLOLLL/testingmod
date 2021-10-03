@@ -17,7 +17,7 @@ public class TNT_Bow extends BowItem {
     @Override //override this arrow jawn and return the predicate of if there is an explosive arrow in the inventory
     public Predicate<ItemStack> getProjectiles() {
         return (stack) -> {
-            return stack.getItem() == Testingmod.EXPLOSIVE_ARROW;
+            return (stack.getItem() == Testingmod.EXPLOSIVE_ARROW) || (stack.getItem() == Testingmod.ENDER_ARROW);
         };
     }
 }

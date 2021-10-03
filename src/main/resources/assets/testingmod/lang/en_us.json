@@ -2,8 +2,10 @@
   "item.testingmod.wand": "Wand",
   "item.testingmod.tnt_bow": "TNT Bow",
   "item.testingmod.explosive_arrow": "Explosive Arrow",
+  "item.testingmod.ender_arrow": "Ender Arrow",
   "item.testingmod.tnt_sword": "TNT Sword",
   "item.testingmod.tnt_pickaxe": "TNT Pickaxe",
+  "item.testingmod.miner_pickaxe": "Miner Pickaxe",
   "key.testingmod.cbind": "The Ultimate C Bind",
   "category.testingmod.custombindings": "Custom Bindings"
 }

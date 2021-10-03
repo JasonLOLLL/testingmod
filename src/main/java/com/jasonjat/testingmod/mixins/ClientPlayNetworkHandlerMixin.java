@@ -1,7 +1,7 @@
 package com.jasonjat.testingmod.mixins;
 
 import com.jasonjat.testingmod.Testingmod;
-import com.jasonjat.testingmod.entities.ExplosiveArrowEntity;
+import com.jasonjat.testingmod.entities.EnderArrowEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -32,7 +32,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
     private void onEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci, double x, double y, double z, EntityType<?> type) {
         Entity entity = null;
         if (type == Testingmod.EXPLOSIVE_ARROW_ENTITY) {
-            entity = new ExplosiveArrowEntity(world, x, y, z);
+            entity = new EnderArrowEntity(world, x, y, z);
         } // we can replicate this one here for all our other entities
         // entity would be null here when the type was not one for us
         if (entity != null) {
