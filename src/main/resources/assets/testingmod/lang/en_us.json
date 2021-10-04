@@ -6,6 +6,7 @@
   "item.testingmod.tnt_sword": "TNT Sword",
   "item.testingmod.tnt_pickaxe": "TNT Pickaxe",
   "item.testingmod.miner_pickaxe": "Miner Pickaxe",
-  "key.testingmod.cbind": "The Ultimate C Bind",
-  "category.testingmod.custombindings": "Custom Bindings"
+  "key.testingmod.cbind": "Select Ability",
+  "key.testingmod.usebind": "Use Ability",
+  "category.testingmod.custombindings": "Testingmod Binds"
 }

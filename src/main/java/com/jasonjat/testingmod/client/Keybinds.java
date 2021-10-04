@@ -17,22 +17,20 @@ import org.lwjgl.glfw.GLFW;
 @Environment(EnvType.CLIENT)
 public class Keybinds {
 
-    public static KeyBinding keybindC = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+    public static KeyBinding keybindSelect = KeyBindingHelper.registerKeyBinding(new KeyBinding(
        "key.testingmod.cbind",
        InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_C,
             "category.testingmod.custombindings"
     ));
 
-    public static void register() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (keybindC.wasPressed()) {
-                PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
-                packetByteBuf.writeString("C");
-                ClientPlayNetworking.send(ModPackets.KEYBIND_PACKET, packetByteBuf);
+    public static KeyBinding keybindUse = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.testingmod.usebind",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_V,
+            "category.testingmod.custombindings"
+    ));
 
-                MinecraftClient.getInstance().player.playSound(SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE, 1f, 1f);
-            }
-        });
+    public static void register() {
     }
 }

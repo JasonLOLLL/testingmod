@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
@@ -46,18 +47,22 @@ public class ExplosiveArrowEntity extends ArrowEntity {
     @Override
     public void onHit(LivingEntity target) {
         super.onHit(target);
-        StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.GLOWING, this.duration, 0);
-        target.addStatusEffect(statusEffectInstance, this.getEffectCause());
+//        StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.GLOWING, this.duration, 0);
+//        target.addStatusEffect(statusEffectInstance, this.getEffectCause());
 
-        System.out.println("This hit something!");
+        explode(target.getBlockPos());
     }
 
     @Override
     protected void onBlockHit(BlockHitResult bhr) {
         super.onBlockHit(bhr);
 
-        world.createExplosion(this, bhr.getBlockPos().getX(), bhr.getBlockPos().getY(), bhr.getBlockPos().getZ(), 10f, Explosion.DestructionType.DESTROY);
+        explode(bhr.getBlockPos());
         this.discard();
+    }
+
+    private void explode(BlockPos pos) {
+        world.createExplosion(this, pos.getX(), pos.getY(), pos.getZ(), 10f, Explosion.DestructionType.DESTROY);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {

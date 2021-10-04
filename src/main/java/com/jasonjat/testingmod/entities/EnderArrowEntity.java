@@ -45,7 +45,6 @@ public class EnderArrowEntity extends PersistentProjectileEntity {
         if (this.world.isClient && !this.inGround) {
             this.world.addParticle(ParticleTypes.END_ROD, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
         }
-
     }
 
     @Override
@@ -68,9 +67,7 @@ public class EnderArrowEntity extends PersistentProjectileEntity {
         if (this.world.isClient) {
             this.world.addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
         }
-        this.world.playSound((PlayerEntity) this.getOwner(), b, SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE, SoundCategory.AMBIENT,1f, 1f);
-
-
+        getOwner().playSound(SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE,1f, 1f);
         this.discard();
     }
 
