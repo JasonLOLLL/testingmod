@@ -2,10 +2,10 @@ package com.jasonjat.testingmod.abilities;
 
 import net.minecraft.entity.player.PlayerEntity;
 
-public class Ability {
-    private String name;
-    private int cooldown;
-    private PlayerEntity owner;
+public abstract class Ability {
+    protected String name;
+    protected int cooldown;
+    protected PlayerEntity owner;
 
     public Ability(String name, int cooldown, PlayerEntity owner) {
         this.name = name;
@@ -13,7 +13,5 @@ public class Ability {
         this.owner = owner;
     }
 
-    public void useAbility() {
-        // blah blah blah
-    }
+    public abstract void useAbility();
 }

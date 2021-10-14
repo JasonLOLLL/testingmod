@@ -37,7 +37,7 @@ public abstract class HUDMixin extends DrawableHelper{
     private MinecraftClient client;
 
     private int count = 0;
-    private final int maxCount = 3;
+    private final int maxCount = 5;
 
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V", at = @At(value = "TAIL"))
     private void renderInfo(MatrixStack matrixStack, float tickDelta, CallbackInfo info) {
@@ -72,23 +72,27 @@ public abstract class HUDMixin extends DrawableHelper{
             // renders texture on screen
 
             int x = 10;
-            int y = 80;
+            int y = 58;
 
             RenderSystem.setShaderTexture(0, new Identifier("textures/gui/widgets.png"));
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1F);
-            this.drawTexture(matrixStack, x, y, 24, 23, 22, 22);
-            this.drawTexture(matrixStack, x, y+=22, 24, 23, 22, 22);
-            this.drawTexture(matrixStack, x, y+=22, 24, 23, 22, 22);
-            this.drawTexture(matrixStack, x, y+=22, 24, 23, 22, 22);
 
-            y = 80;
+            for (int i = 0; i<=maxCount; i++) {
+                this.drawTexture(matrixStack, x, y+=22, 24, 23, 22, 22);
+            }
+
+            y = 83;
 
             //selected item
             RenderSystem.setShaderColor(1.0F, 1.0F, 2.0F, 1F);
             this.drawTexture(matrixStack, x, 80+(count*22), 24, 23, 22, 22);
 
-            itemRenderer.renderGuiItemIcon(new ItemStack(Items.DIAMOND), x+3, y+3);
-            itemRenderer.renderGuiItemIcon(new ItemStack(Items.DIAMOND_SWORD), x+3, y+22+3);
+            itemRenderer.renderGuiItemIcon(new ItemStack(Items.DIAMOND), x+3, y);
+            itemRenderer.renderGuiItemIcon(new ItemStack(Items.DIAMOND_SWORD), x+3, y+=22);
+            itemRenderer.renderGuiItemIcon(new ItemStack(Items.TNT), x+3, y+=22);
+            itemRenderer.renderGuiItemIcon(new ItemStack(Items.GHAST_TEAR), x+3, y+=22);
+            itemRenderer.renderGuiItemIcon(new ItemStack(Items.CACTUS), x+3, y+=22);
+            itemRenderer.renderGuiItemIcon(new ItemStack(Items.GOLD_BLOCK), x+3, y+=22);
 
             // enum these stuff
             textRenderer.drawWithShadow(matrixStack, "Suskiller ability", x+25, 85, 0xf51142);

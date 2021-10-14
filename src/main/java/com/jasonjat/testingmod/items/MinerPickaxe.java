@@ -12,6 +12,8 @@ public class MinerPickaxe extends PickaxeItem {
         super(ToolMaterials.NETHERITE, 5, 1f, new Item.Settings().maxDamage(800).group(ItemGroup.TOOLS));
     }
 
+
+
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
 

@@ -17,6 +17,9 @@
     ],
     "main": [
       "com.jasonjat.testingmod.Testingmod"
+    ],
+    "cardinal-components-entity": [
+      "com.jasonjat.testingmod.components.MyComponents"
     ]
   },
   "mixins": [
@@ -26,5 +29,10 @@
     "fabricloader": ">=0.11.6",
     "fabric": "*",
     "minecraft": "1.17.1"
+  },
+  "custom": {
+    "cardinal-components": [
+      "testingmod:data"
+    ]
   }
 }
