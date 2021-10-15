@@ -53,14 +53,14 @@ public class ModPacketsC2S {
                     serverPlayerEntity.playSound(SoundEvents.ENTITY_FOX_HURT, SoundCategory.AMBIENT, 1f, 1f);
                     break;
                 case 4:
-                    Ability myNewAbility = new ExplodeAbility(serverPlayerEntity);
-                    myNewAbility.useAbility();
+                    MAGIK.get(serverPlayerEntity).addString();
+                    break;
                 case 5:
                     int magik = MAGIK.maybeGet(serverPlayerEntity).map(IntComponent::getValue).orElse(0);
                     System.out.println(magik);
                     break;
                 case 6:
-                    MAGIK.get(serverPlayerEntity).setValue(10);
+                    MAGIK.get(serverPlayerEntity).getStringList().forEach(System.out::println);
                     break;
             }
         }

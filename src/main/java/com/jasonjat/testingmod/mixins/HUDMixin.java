@@ -37,7 +37,7 @@ public abstract class HUDMixin extends DrawableHelper{
     private MinecraftClient client;
 
     private int count = 0;
-    private final int maxCount = 5;
+    private final int maxCount = 6;
 
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V", at = @At(value = "TAIL"))
     private void renderInfo(MatrixStack matrixStack, float tickDelta, CallbackInfo info) {
@@ -93,6 +93,7 @@ public abstract class HUDMixin extends DrawableHelper{
             itemRenderer.renderGuiItemIcon(new ItemStack(Items.GHAST_TEAR), x+3, y+=22);
             itemRenderer.renderGuiItemIcon(new ItemStack(Items.CACTUS), x+3, y+=22);
             itemRenderer.renderGuiItemIcon(new ItemStack(Items.GOLD_BLOCK), x+3, y+=22);
+            itemRenderer.renderGuiItemIcon(new ItemStack(Items.RAIL), x+3, y+=22);
 
             // enum these stuff
             textRenderer.drawWithShadow(matrixStack, "Suskiller ability", x+25, 85, 0xf51142);
