@@ -32,7 +32,9 @@
   },
   "custom": {
     "cardinal-components": [
-      "testingmod:magik"
+      "testingmod:magik",
+      "testingmod:unlockedabilities",
+      "testingmod:playerstats"
     ]
   }
 }

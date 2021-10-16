@@ -2,9 +2,7 @@ package com.jasonjat.testingmod.components;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
-import dev.onyxstudios.cca.api.v3.entity.PlayerComponent;
 import net.fabricmc.fabric.api.util.NbtType;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -15,22 +13,20 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomIntComponent implements IntComponent, AutoSyncedComponent, ServerTickingComponent {
+public class RandomIntComponent implements AutoSyncedComponent, ServerTickingComponent {
 
     private final PlayerEntity provider;
     private int value = (int) (Math.random() * 20);
-    private List<String> stringList = new ArrayList<>();
+    private final List<String> stringList = new ArrayList<>();
 
     public RandomIntComponent(PlayerEntity provider) {
         this.provider = provider;
     }
 
-    @Override
     public int getValue() {
         return value;
     }
 
-    @Override
     public void setValue(int value) {
         this.value = value;
         MyComponents.MAGIK.sync(this.provider);
@@ -64,10 +60,10 @@ public class RandomIntComponent implements IntComponent, AutoSyncedComponent, Se
 
     @Override
     public void serverTick() {
-        if (provider.age % 100 == 0) { //every five seconds or 100 ticks
-            System.out.println("Five seconds have passed.");
-            stringList.forEach(System.out::println);
-        }
+//        if (provider.age % 100 == 0) { //every five seconds or 100 ticks
+//            System.out.println("Five seconds have passed.");
+//            stringList.forEach(System.out::println);
+//        }
     }
 
     @Override
