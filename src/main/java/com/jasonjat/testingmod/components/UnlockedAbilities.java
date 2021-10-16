@@ -25,6 +25,7 @@ public class UnlockedAbilities implements AutoSyncedComponent {
     }
 
     public boolean unlockAbility(String ability) {
+
         Identifier a = new Identifier(ability);
         if (!unlockedAbilities.contains(a)) {
             return unlockedAbilities.add(a);

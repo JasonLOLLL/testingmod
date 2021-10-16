@@ -1,5 +1,7 @@
 package com.jasonjat.testingmod.modpackets;
 
+import com.jasonjat.testingmod.abilities.ExplodeAbility;
+import com.jasonjat.testingmod.abilities.TeleportAbility;
 import com.jasonjat.testingmod.components.MyComponents;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -17,12 +19,21 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
+import java.util.function.Consumer;
 
 public class ModPacketsC2S {
 
-    private static final BiPredicate<List<Identifier>, Identifier> checkContains = List::contains;
+    public static final BiPredicate<List<Identifier>, Identifier> checkContains = List::contains;
+    private static final List<Runnable> runnableList = new ArrayList<>();
+    private static final List<Consumer<ServerPlayerEntity>> consumerList = new ArrayList<>();
+
+    static {
+        consumerList.add(TeleportAbility::use);
+        consumerList.add(ExplodeAbility::use);
+    }
 
     public static void register() {
         ServerPlayNetworking.registerGlobalReceiver(ModPackets.GUI_PACKET, ModPacketsC2S::guiThing);
@@ -37,15 +48,9 @@ public class ModPacketsC2S {
             World world = serverPlayerEntity.getEntityWorld();
             List<Identifier> idListPlayer = MyComponents.UNLOCKED_ABILITIES.get(serverPlayerEntity).getUnlockedAbilities();
 
+            consumerList.get(type).accept(serverPlayerEntity);
+
             switch (type) {
-                case 0:
-                    if (checkContains.test(idListPlayer, new Identifier("teleport"))) {
-                        serverPlayerEntity.teleport(pos.getX(), pos.getY()+10, pos.getZ());
-                        serverPlayerEntity.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1f, 1f);
-                    } else {
-                        System.out.println("player does not have teleport ability unlocked");
-                    }
-                    break;
                 case 1:
                     if (checkContains.test(idListPlayer, new Identifier("explode"))) {
                         serverPlayerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 200, 3));
@@ -63,6 +68,9 @@ public class ModPacketsC2S {
                     serverPlayerEntity.playSound(SoundEvents.ENTITY_FOX_HURT, SoundCategory.AMBIENT, 1f, 1f);
                     break;
                 case 4:
+
+
+
                     // update unlocked abilities
                     double level = MyComponents.PLAYER_STATS.get(serverPlayerEntity).getLevel();
                     if (level > 5) {
