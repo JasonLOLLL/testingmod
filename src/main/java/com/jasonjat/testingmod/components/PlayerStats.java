@@ -24,7 +24,7 @@ public class PlayerStats implements AutoSyncedComponent {
 
     public void incrementLevel(double level) {
         this.level+=level;
-        System.out.println(player.getDisplayName().toString() + "'s level has increased by " + level);
+        System.out.println(player.getName().asString() + "'s level has increased by " + level);
         System.out.println("Level is now: " + this.level);
     }
 

@@ -1,10 +1,27 @@
 package com.jasonjat.testingmod.abilities;
 
-public abstract class Ability {
-    static protected String name;
-    static protected int cooldown;
+import com.jasonjat.testingmod.components.MyComponents;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 
-    public static int getCooldown() {
+import java.util.List;
+import java.util.function.BiPredicate;
+
+public abstract class Ability {
+    protected String name;
+    protected int cooldown;
+
+    public static final BiPredicate<List<Identifier>, Identifier> checkContains = List::contains;
+
+
+    public abstract void use(ServerPlayerEntity player, Identifier id);
+
+    public int getCooldown() {
         return cooldown;
+    }
+
+    public void doCooldown(ServerPlayerEntity player, Identifier id) {
+        MyComponents.UNLOCKED_ABILITIES.get(player).setCooldown(id, cooldown);
+        MyComponents.UNLOCKED_ABILITIES.sync(player);
     }
 }

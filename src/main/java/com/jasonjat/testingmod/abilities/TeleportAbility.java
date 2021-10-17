@@ -1,5 +1,6 @@
 package com.jasonjat.testingmod.abilities;
 
+import com.jasonjat.testingmod.Testingmod;
 import com.jasonjat.testingmod.components.MyComponents;
 import com.jasonjat.testingmod.modpackets.ModPacketsC2S;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -12,17 +13,19 @@ import java.util.List;
 
 public class TeleportAbility extends Ability {
 
-    static {
-        cooldown = 5;
+    {
+        cooldown = 100;
     }
 
-    public static void use(ServerPlayerEntity player) {
+    public void use(ServerPlayerEntity player, Identifier id) {
         List<Identifier> idListPlayer = MyComponents.UNLOCKED_ABILITIES.get(player).getUnlockedAbilities();
         Vec3d pos = player.getPos();
 
-        if (ModPacketsC2S.checkContains.test(idListPlayer, new Identifier("teleport"))) {
+        if (checkContains.test(idListPlayer, id)) {
             player.teleport(pos.getX(), pos.getY()+10, pos.getZ());
             player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1f, 1f);
+
+            doCooldown(player, id);
         } else {
             System.out.println("player does not have teleport ability unlocked");
         }

@@ -1,5 +1,6 @@
 package com.jasonjat.testingmod;
 
+import com.jasonjat.testingmod.abilities.AbilityRegistry;
 import com.jasonjat.testingmod.entities.EnderArrowEntity;
 import com.jasonjat.testingmod.entities.ExplosiveArrowEntity;
 import com.jasonjat.testingmod.entities.PenguinEntity;
@@ -17,6 +18,8 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Testingmod implements ModInitializer {
 
@@ -28,6 +31,8 @@ public class Testingmod implements ModInitializer {
     public static final Item TNT_PICKAXE = new TNTPickaxe();
     public static final Item MINER_PICKAXE = new MinerPickaxe();
     public static final Item ENDER_ARROW = new EnderArrowItem();
+
+    public static final Logger LOGGER = LogManager.getLogger(Testingmod.class);
 
 
     public static final EntityType<ExplosiveArrowEntity> EXPLOSIVE_ARROW_ENTITY = Registry.register(
@@ -66,6 +71,7 @@ public class Testingmod implements ModInitializer {
         EntityModelLayerRegistry.registerModelLayer(MODEL_PENGUIN_LAYER, PenguinEntityModel::getTexturedModelData);
 
         ModPacketsC2S.register();
+        AbilityRegistry.init();
     }
 
 }

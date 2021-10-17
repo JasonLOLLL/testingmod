@@ -1,6 +1,10 @@
 package com.jasonjat.testingmod.mixins;
 
+import com.jasonjat.testingmod.Testingmod;
+import com.jasonjat.testingmod.abilities.Ability;
+import com.jasonjat.testingmod.abilities.AbilityRegistry;
 import com.jasonjat.testingmod.client.Keybinds;
+import com.jasonjat.testingmod.components.MyComponents;
 import com.jasonjat.testingmod.modpackets.ModPackets;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.netty.buffer.Unpooled;
@@ -13,6 +17,7 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
@@ -24,6 +29,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Map;
+
 @Environment(EnvType.CLIENT)
 @Mixin(InGameHud.class)
 public abstract class HUDMixin extends DrawableHelper{
@@ -31,6 +38,8 @@ public abstract class HUDMixin extends DrawableHelper{
     @Shadow public abstract TextRenderer getTextRenderer();
 
     @Shadow @Final private ItemRenderer itemRenderer;
+
+    @Shadow protected abstract PlayerEntity getCameraPlayer();
 
     private MinecraftClient client;
 
@@ -49,15 +58,29 @@ public abstract class HUDMixin extends DrawableHelper{
                 }
             }
 
+
             while (Keybinds.keybindUse.wasPressed()) {
+                if (count <= 1) {
 
+                    Identifier id = MyComponents.UNLOCKED_ABILITIES.get(client.player).getUnlockedAbilities().get(count);
+                    int currentCooldown = MyComponents.UNLOCKED_ABILITIES.get(client.player).getCooldown(id);
 
+                    if (currentCooldown <= 0) {
+                        PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
+                        packetByteBuf.writeString("Use");
+                        packetByteBuf.writeInt(count);
 
-                PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
-                packetByteBuf.writeString("Use");
-                packetByteBuf.writeInt(count);
+                        ClientPlayNetworking.send(ModPackets.KEYBIND_PACKET, packetByteBuf);
+                    } else {
+                        System.out.println(id + " on cooldown!");
+                    }
+                } else {
+                    PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
+                    packetByteBuf.writeString("Use");
+                    packetByteBuf.writeInt(count);
 
-                ClientPlayNetworking.send(ModPackets.KEYBIND_PACKET, packetByteBuf);
+                    ClientPlayNetworking.send(ModPackets.KEYBIND_PACKET, packetByteBuf);
+                }
             }
 
             TextRenderer textRenderer = getTextRenderer();
@@ -97,7 +120,7 @@ public abstract class HUDMixin extends DrawableHelper{
             itemRenderer.renderGuiItemIcon(new ItemStack(Items.RAIL), x+3, y+=22);
 
             // enum these stuff
-            textRenderer.drawWithShadow(matrixStack, "Suskiller ability", x+25, 85, 0xf51142);
+            textRenderer.drawWithShadow(matrixStack,"Hello there!", x+25, 85, 0xf51142);
 
             RenderSystem.disableBlend();
         }
