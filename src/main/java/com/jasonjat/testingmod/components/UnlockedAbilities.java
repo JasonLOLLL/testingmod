@@ -1,13 +1,13 @@
 package com.jasonjat.testingmod.components;
 
 import com.jasonjat.testingmod.Testingmod;
-import com.jasonjat.testingmod.abilities.AbilityRegistry;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.*;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.*;
@@ -22,18 +22,16 @@ public class UnlockedAbilities implements AutoSyncedComponent, ServerTickingComp
         this.player = player;
     }
 
-    public boolean unlockAbility(String ability) {
-
-        Identifier a = new Identifier(Testingmod.MOD_ID, ability);
-        if (!unlockedAbilities.contains(a)) {
-            return unlockedAbilities.add(a);
+    public boolean unlockAbility(Identifier ability) {
+        if (!unlockedAbilities.contains(ability)) {
+            player.sendMessage(Text.of("A new ability has been unlocked: " + ability), true);
+            return unlockedAbilities.add(ability);
         }
         return false;
     }
 
-    public boolean revokeAbility(String ability) {
-        Identifier a = new Identifier(Testingmod.MOD_ID, ability);
-        return unlockedAbilities.remove(a);
+    public boolean revokeAbility(Identifier ability) {
+        return unlockedAbilities.remove(ability);
     }
 
     public void setCooldown(Identifier id, int cooldown) {
@@ -63,13 +61,6 @@ public class UnlockedAbilities implements AutoSyncedComponent, ServerTickingComp
         nbtList.forEach(id -> unlockedAbilities.add(new Identifier(id.asString())));
 
         cooldowns.clear();
-//        NbtList nbtKeyList = tag.getList("cooldownid", NbtType.STRING);
-//        int[] nbtValueList = tag.getIntArray("cooldownvalue");
-//        nbtKeyList.forEach(id-> {
-//           for (int i = 0; i<nbtValueList.length; i++) {
-//               cooldowns.put(new Identifier(id.asString()), nbtValueList[i]);
-//           }
-//        });
 
         NbtList hashList = tag.getList("cooldown", NbtType.COMPOUND);
         for (int i = 0; i<hashList.size(); i++) {
@@ -88,17 +79,6 @@ public class UnlockedAbilities implements AutoSyncedComponent, ServerTickingComp
 
         unlockedAbilities.forEach(id -> nbtList.add(NbtString.of(id.toString())));
         tag.put("abilities", nbtList);
-
-//        NbtList nbtKeyList = new NbtList();
-//
-//        for (Identifier id : cooldowns.keySet()) {
-//            nbtKeyList.add(NbtString.of(id.toString()));
-//        }
-//
-//        tag.put("cooldownid", nbtKeyList);
-//
-//        int[] intArray = cooldowns.values().stream().mapToInt(Integer::intValue).toArray();
-//        NbtIntArray nbtIntArray = new NbtIntArray(intArray);
 
         NbtList nbtKeyList = new NbtList();
         for (Map.Entry<Identifier, Integer> entry : cooldowns.entrySet()) {

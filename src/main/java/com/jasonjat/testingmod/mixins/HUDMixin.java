@@ -29,6 +29,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
@@ -58,10 +60,14 @@ public abstract class HUDMixin extends DrawableHelper{
                 }
             }
 
+            List<Identifier> identifiers = MyComponents.UNLOCKED_ABILITIES.get(client.player).getUnlockedAbilities();
+
+            if (client.player.age % 20 == 0) {
+                System.out.println(identifiers.size());
+            }
 
             while (Keybinds.keybindUse.wasPressed()) {
-                if (count <= 1) {
-
+                if (count < identifiers.size()) {
                     Identifier id = MyComponents.UNLOCKED_ABILITIES.get(client.player).getUnlockedAbilities().get(count);
                     int currentCooldown = MyComponents.UNLOCKED_ABILITIES.get(client.player).getCooldown(id);
 
@@ -74,7 +80,7 @@ public abstract class HUDMixin extends DrawableHelper{
                     } else {
                         System.out.println(id + " on cooldown!");
                     }
-                } else {
+                } else if (count >= AbilityRegistry.getAbilities().size()) {
                     PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
                     packetByteBuf.writeString("Use");
                     packetByteBuf.writeInt(count);
@@ -120,7 +126,11 @@ public abstract class HUDMixin extends DrawableHelper{
             itemRenderer.renderGuiItemIcon(new ItemStack(Items.RAIL), x+3, y+=22);
 
             // enum these stuff
-            textRenderer.drawWithShadow(matrixStack,"Hello there!", x+25, 85, 0xf51142);
+            y = 85;
+            textRenderer.drawWithShadow(matrixStack,"Hello there!", x+25, y,0xf51142);
+            textRenderer.drawWithShadow(matrixStack,"What!", x+25, y+=22, 0xf51262);
+            textRenderer.drawWithShadow(matrixStack,"LOL!", x+25, y+=22, 0xf41141);
+            textRenderer.drawWithShadow(matrixStack,"COOL!", x+25, y+=22, 0xf21842);
 
             RenderSystem.disableBlend();
         }

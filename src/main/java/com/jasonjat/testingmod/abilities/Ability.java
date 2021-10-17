@@ -10,6 +10,7 @@ import java.util.function.BiPredicate;
 public abstract class Ability {
     protected String name;
     protected int cooldown;
+    protected double levelUnlocked;
 
     public static final BiPredicate<List<Identifier>, Identifier> checkContains = List::contains;
 
@@ -19,6 +20,7 @@ public abstract class Ability {
     public int getCooldown() {
         return cooldown;
     }
+    public double getLevelUnlocked() {return levelUnlocked; }
 
     public void doCooldown(ServerPlayerEntity player, Identifier id) {
         MyComponents.UNLOCKED_ABILITIES.get(player).setCooldown(id, cooldown);

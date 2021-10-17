@@ -14,20 +14,15 @@ import java.util.List;
 public class TeleportAbility extends Ability {
 
     {
-        cooldown = 100;
+        cooldown = 5;
+        levelUnlocked = 5;
     }
 
     public void use(ServerPlayerEntity player, Identifier id) {
-        List<Identifier> idListPlayer = MyComponents.UNLOCKED_ABILITIES.get(player).getUnlockedAbilities();
         Vec3d pos = player.getPos();
 
-        if (checkContains.test(idListPlayer, id)) {
-            player.teleport(pos.getX(), pos.getY()+10, pos.getZ());
-            player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1f, 1f);
-
-            doCooldown(player, id);
-        } else {
-            System.out.println("player does not have teleport ability unlocked");
-        }
+        player.teleport(pos.getX(), pos.getY()+10, pos.getZ());
+        player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.AMBIENT, 1f, 1f);
+        doCooldown(player, id);
     }
 }

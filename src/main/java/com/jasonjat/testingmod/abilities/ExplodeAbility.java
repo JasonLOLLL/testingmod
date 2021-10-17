@@ -18,20 +18,16 @@ public class ExplodeAbility extends Ability {
 
     {
         cooldown = 2;
+        levelUnlocked = 10;
     }
 
     public void use(ServerPlayerEntity player, Identifier id) {
-        List<Identifier> idListPlayer = MyComponents.UNLOCKED_ABILITIES.get(player).getUnlockedAbilities();
         Vec3d pos = player.getPos();
 
-        if (checkContains.test(idListPlayer, id)) {
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 200, 3));
-            player.getServerWorld().spawnParticles(ParticleTypes.DOLPHIN, pos.getX(), pos.getY(), pos.getZ(), 10, 1, 1, 1, 1);
-            player.playSound(SoundEvents.ITEM_TOTEM_USE, SoundCategory.AMBIENT, 1f, 1f);
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 200, 3));
+        player.getServerWorld().spawnParticles(ParticleTypes.DOLPHIN, pos.getX(), pos.getY(), pos.getZ(), 10, 1, 1, 1, 1);
+        player.playSound(SoundEvents.ITEM_TOTEM_USE, SoundCategory.AMBIENT, 1f, 1f);
 
-            doCooldown(player, id);
-        } else {
-            System.out.println("player does not have explode ability");
-        }
+        doCooldown(player, id);
     }
 }

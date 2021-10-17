@@ -1,6 +1,7 @@
 package com.jasonjat.testingmod.modpackets;
 
 import com.jasonjat.testingmod.Testingmod;
+import com.jasonjat.testingmod.abilities.Ability;
 import com.jasonjat.testingmod.abilities.AbilityRegistry;
 import com.jasonjat.testingmod.abilities.ExplodeAbility;
 import com.jasonjat.testingmod.abilities.TeleportAbility;
@@ -21,10 +22,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiPredicate;
-import java.util.function.Consumer;
+
+import static com.jasonjat.testingmod.Testingmod.LOGGER;
 
 public class ModPacketsC2S {
 
@@ -41,29 +41,16 @@ public class ModPacketsC2S {
             World world = serverPlayerEntity.getEntityWorld();
             List<Identifier> idListPlayer = MyComponents.UNLOCKED_ABILITIES.get(serverPlayerEntity).getUnlockedAbilities();
 
+            if (type < 3) {
+                useAbility(MyComponents.UNLOCKED_ABILITIES.get(serverPlayerEntity).getUnlockedAbilities().get(type), serverPlayerEntity);
+            }
+
             switch (type) {
-                case 0:
-                    useAbility("teleport", serverPlayerEntity);
-                    break;
-                case 1:
-                    useAbility("explode", serverPlayerEntity);
-                    break;
-                case 2:
-                    world.breakBlock(serverPlayerEntity.getBlockPos().add(0,-1,0), true, serverPlayerEntity);
-                    serverPlayerEntity.getServerWorld().spawnParticles(ParticleTypes.FLAME, pos.getX(), pos.getY(), pos.getZ(), 15,1,1,1,1);
-                    break;
                 case 3:
                     serverPlayerEntity.playSound(SoundEvents.ENTITY_FOX_HURT, SoundCategory.AMBIENT, 1f, 1f);
                     break;
                 case 4:
-                    // update unlocked abilities
-                    double level = MyComponents.PLAYER_STATS.get(serverPlayerEntity).getLevel();
-                    if (level > 5) {
-                        MyComponents.UNLOCKED_ABILITIES.get(serverPlayerEntity).unlockAbility("teleport");
-                    } else MyComponents.UNLOCKED_ABILITIES.get(serverPlayerEntity).revokeAbility("teleport");
-                    if (level > 10) {
-                        MyComponents.UNLOCKED_ABILITIES.get(serverPlayerEntity).unlockAbility("explode");
-                    } else MyComponents.UNLOCKED_ABILITIES.get(serverPlayerEntity).revokeAbility("explode");
+                    MyComponents.PLAYER_STATS.get(serverPlayerEntity).incrementLevel(-1);
                     break;
                 case 5:
                     // change level
@@ -76,9 +63,10 @@ public class ModPacketsC2S {
         }
     }
 
-    private static void useAbility(String id, ServerPlayerEntity player) {
-        Identifier identifier = new Identifier(Testingmod.MOD_ID, id);
-        AbilityRegistry.get(identifier).use(player, identifier);
+    private static void useAbility(Identifier identifier, ServerPlayerEntity player) {
+        if (MyComponents.UNLOCKED_ABILITIES.get(player).getCooldown(identifier)<=0 && Ability.checkContains.test(MyComponents.UNLOCKED_ABILITIES.get(player).getUnlockedAbilities(), identifier)) {
+            AbilityRegistry.get(identifier).use(player, identifier);
+        } else LOGGER.warn("Suspicious behavior on " + player.getDisplayName().asString() + " detected sending early packets and bypassing the cooldown.");
     }
 
     private static void guiThing(MinecraftServer minecraftServer, ServerPlayerEntity serverPlayerEntity, ServerPlayNetworkHandler serverPlayNetworkHandler, PacketByteBuf packetByteBuf, PacketSender packetSender) {

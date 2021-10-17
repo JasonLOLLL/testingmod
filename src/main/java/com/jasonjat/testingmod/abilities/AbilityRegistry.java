@@ -13,6 +13,7 @@ public class AbilityRegistry {
     public static void init() {
         register("teleport", new TeleportAbility());
         register("explode", new ExplodeAbility());
+        register("tunnel", new TunnelAbility());
     }
 
     private static void register(String abilityId, Ability ability) {
