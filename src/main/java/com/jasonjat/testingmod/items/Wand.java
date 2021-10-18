@@ -2,6 +2,7 @@ package com.jasonjat.testingmod.items;
 
 import com.jasonjat.testingmod.screen.Gui;
 import com.jasonjat.testingmod.screen.PreScreen;
+import com.jasonjat.testingmod.screen.TestScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -23,7 +24,7 @@ public class Wand extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (hand==Hand.MAIN_HAND && world.isClient) {
-            MinecraftClient.getInstance().setScreen(new PreScreen(new Gui()));
+            MinecraftClient.getInstance().setScreen(new TestScreen());
         }
         return super.use(world, user, hand);
     }

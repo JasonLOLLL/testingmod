@@ -6,6 +6,7 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
 public final class MyComponents implements EntityComponentInitializer {
@@ -20,4 +21,14 @@ public final class MyComponents implements EntityComponentInitializer {
         registry.registerForPlayers(PLAYER_STATS, PlayerStats::new, RespawnCopyStrategy.ALWAYS_COPY);
     }
 
+    public static void syncPlayerComponent(PlayerEntity player, ComponentType type) {
+        switch (type) {
+            case ABILITIES:
+                UNLOCKED_ABILITIES.sync(player);
+            case STATS:
+                PLAYER_STATS.sync(player);
+        }
+    }
+
 }
+

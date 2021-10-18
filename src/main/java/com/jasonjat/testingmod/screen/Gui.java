@@ -13,6 +13,10 @@ import net.minecraft.text.LiteralText;
 public class Gui extends LightweightGuiDescription {
 
     public Gui() {
+        init();
+    }
+
+    public void init() {
         WGridPanel root = new WGridPanel();
         setRootPanel(root);
         root.setSize(100, 100);

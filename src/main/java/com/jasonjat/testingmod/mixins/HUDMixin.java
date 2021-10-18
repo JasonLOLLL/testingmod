@@ -43,7 +43,7 @@ public abstract class HUDMixin extends DrawableHelper{
 
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
-    private MinecraftClient client;
+    private MinecraftClient client = MinecraftClient.getInstance();
 
     private int count = 0;
     private final int maxCount = 6;
@@ -61,10 +61,6 @@ public abstract class HUDMixin extends DrawableHelper{
             }
 
             List<Identifier> identifiers = MyComponents.UNLOCKED_ABILITIES.get(client.player).getUnlockedAbilities();
-
-            if (client.player.age % 20 == 0) {
-                System.out.println(identifiers.size());
-            }
 
             while (Keybinds.keybindUse.wasPressed()) {
                 if (count < identifiers.size()) {
@@ -94,6 +90,7 @@ public abstract class HUDMixin extends DrawableHelper{
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             textRenderer.drawWithShadow(matrixStack, ""+count, 10, 10, 0xFFFFFF);
+            textRenderer.drawWithShadow(matrixStack, ""+MyComponents.PLAYER_STATS.get(client.player).getLevel(), 10, 20, 0x25c42b);
 
             //itemRenderer.renderInGui(item, 10, 50);
 
@@ -131,6 +128,19 @@ public abstract class HUDMixin extends DrawableHelper{
             textRenderer.drawWithShadow(matrixStack,"What!", x+25, y+=22, 0xf51262);
             textRenderer.drawWithShadow(matrixStack,"LOL!", x+25, y+=22, 0xf41141);
             textRenderer.drawWithShadow(matrixStack,"COOL!", x+25, y+=22, 0xf21842);
+
+            //my own sprite!
+            RenderSystem.setShaderTexture(0, new Identifier(Testingmod.MOD_ID, "textures/gui/hud/sprite_atlas.png"));
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+            this.drawTexture(matrixStack, 30, 58, 0,0, 22, 22);
+            this.drawTexture(matrixStack, 60, 58, 23,0, 22, 22);
+            this.drawTexture(matrixStack, 90, 58, 0,24, 32, 32);
+            this.drawTexture(matrixStack, 120, 58, 33,24, 32, 32);
+            this.drawTexture(matrixStack, 150, 58, 66,24, 32, 32);
+            this.drawTexture(matrixStack, 300, 58, 0,192, 64, 64);
+            //drawSprite()
+            // have keybind open complete new inventory with custom textures no more cotton :(
+            // also have textures in bottom left and figure out a good gui design
 
             RenderSystem.disableBlend();
         }

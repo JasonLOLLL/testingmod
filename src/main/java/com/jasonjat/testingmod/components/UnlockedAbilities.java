@@ -24,7 +24,7 @@ public class UnlockedAbilities implements AutoSyncedComponent, ServerTickingComp
 
     public boolean unlockAbility(Identifier ability) {
         if (!unlockedAbilities.contains(ability)) {
-            player.sendMessage(Text.of("A new ability has been unlocked: " + ability), true);
+            player.sendMessage(Text.of("A new ability has been unlocked: " + ability.getPath()), true);
             return unlockedAbilities.add(ability);
         }
         return false;

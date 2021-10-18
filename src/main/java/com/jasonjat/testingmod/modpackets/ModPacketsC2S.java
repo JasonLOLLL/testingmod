@@ -1,18 +1,13 @@
 package com.jasonjat.testingmod.modpackets;
 
-import com.jasonjat.testingmod.Testingmod;
 import com.jasonjat.testingmod.abilities.Ability;
 import com.jasonjat.testingmod.abilities.AbilityRegistry;
-import com.jasonjat.testingmod.abilities.ExplodeAbility;
-import com.jasonjat.testingmod.abilities.TeleportAbility;
+import com.jasonjat.testingmod.components.ComponentType;
 import com.jasonjat.testingmod.components.MyComponents;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -51,10 +46,12 @@ public class ModPacketsC2S {
                     break;
                 case 4:
                     MyComponents.PLAYER_STATS.get(serverPlayerEntity).incrementLevel(-1);
+                    MyComponents.syncPlayerComponent(serverPlayerEntity, ComponentType.STATS);
                     break;
                 case 5:
                     // change level
                     MyComponents.PLAYER_STATS.get(serverPlayerEntity).incrementLevel(1);
+                    MyComponents.syncPlayerComponent(serverPlayerEntity, ComponentType.STATS);
                     break;
                 case 6:
                     MyComponents.UNLOCKED_ABILITIES.get(serverPlayerEntity).getUnlockedAbilities().forEach(System.out::println);
