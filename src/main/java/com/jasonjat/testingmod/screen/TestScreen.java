@@ -15,6 +15,8 @@ import net.minecraft.util.Identifier;
 public class TestScreen extends Screen {
 
     private static final Identifier WINDOW = new Identifier("textures/gui/container/hopper.png");
+    private final int backgroundWidth = 176;
+    private final int backgroundHeight = 133;
 
     public TestScreen() {
         super(Text.of("Thy Mother"));
@@ -31,8 +33,7 @@ public class TestScreen extends Screen {
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         super.render(matrices, mouseX, mouseY, delta);
-        super.renderBackground(matrices);
-        this.renderWindowBackground(matrices);
+        this.renderBackground(matrices);
     }
 
     @Override
@@ -45,15 +46,15 @@ public class TestScreen extends Screen {
         return false;
     }
 
-
-
-    private void renderWindowBackground(MatrixStack matrices) {
+    @Override
+    public void renderBackground(MatrixStack matrices, int vOffset) {
+        super.renderBackground(matrices, vOffset);
         RenderSystem.enableBlend();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, WINDOW);
 
-        this.drawTexture(matrices, this.width/2 - 50,this.height/2 - 40,0,0, 176,133);
+        this.drawTexture(matrices, (this.width-this.backgroundWidth)/2,(this.height-this.backgroundHeight)/2,0,0, this.backgroundWidth,this.backgroundHeight);
         RenderSystem.disableBlend();
     }
 }
