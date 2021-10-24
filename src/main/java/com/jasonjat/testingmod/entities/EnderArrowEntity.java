@@ -62,13 +62,15 @@ public class EnderArrowEntity extends PersistentProjectileEntity {
         super.onBlockHit(bhr);
         BlockPos b = bhr.getBlockPos();
 
-        getOwner().teleport(b.getX(), b.getY()+1, b.getZ());
+        if (getOwner() != null) {
+            getOwner().teleport(b.getX(), b.getY() + 1, b.getZ());
 
-        if (this.world.isClient) {
-            this.world.addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+            if (this.world.isClient) {
+                this.world.addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+            }
+            getOwner().playSound(SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE, 1f, 1f);
+            this.discard();
         }
-        getOwner().playSound(SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE,1f, 1f);
-        this.discard();
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {

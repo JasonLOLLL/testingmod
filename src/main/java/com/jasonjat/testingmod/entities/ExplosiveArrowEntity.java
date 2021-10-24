@@ -7,6 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -15,19 +16,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
-public class ExplosiveArrowEntity extends ArrowEntity {
+public class ExplosiveArrowEntity extends PersistentProjectileEntity {
     private int duration = 200;
 
-    public ExplosiveArrowEntity(EntityType<? extends ArrowEntity> entityType, World world) {
+    public ExplosiveArrowEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
 
     public ExplosiveArrowEntity(World world, double x, double y, double z) {
-        super(world, x, y, z);
+        super(Testingmod.EXPLOSIVE_ARROW_ENTITY, x, y, z, world);
     }
 
-    public ExplosiveArrowEntity(World world, LivingEntity shooter) {
-        super(world, shooter);
+    public ExplosiveArrowEntity(LivingEntity owner, World world) {
+        super(Testingmod.EXPLOSIVE_ARROW_ENTITY, owner, world);
     }
 
 
@@ -63,6 +64,9 @@ public class ExplosiveArrowEntity extends ArrowEntity {
 
     private void explode(BlockPos pos) {
         world.createExplosion(this, pos.getX(), pos.getY(), pos.getZ(), 10f, Explosion.DestructionType.DESTROY);
+        if (this.world.isClient) {
+            this.world.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), 0.5D, 0.5D, 0.5D);
+        }
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
@@ -78,9 +82,4 @@ public class ExplosiveArrowEntity extends ArrowEntity {
         nbt.putInt("Duration", this.duration);
     }
 
-    @Override
-    public int getColor() {
-        System.out.println("getColor() Called");
-        return 2;
-    }
 }

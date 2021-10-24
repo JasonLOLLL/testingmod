@@ -17,9 +17,8 @@ public class ExplosiveArrowItem extends ArrowItem {
 
     public PersistentProjectileEntity createArrow(World world, ItemStack stack, LivingEntity shooter) {
         System.out.println("createArrow() called!");
-        ExplosiveArrowEntity arrowEntity = new ExplosiveArrowEntity(world, shooter);
+        ExplosiveArrowEntity arrowEntity = new ExplosiveArrowEntity(shooter, world);
         arrowEntity.setDamage(100);
-        arrowEntity.initFromStack(stack);
         return arrowEntity;
     }
 }

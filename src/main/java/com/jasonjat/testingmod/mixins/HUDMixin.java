@@ -137,11 +137,12 @@ public abstract class HUDMixin extends DrawableHelper{
             this.drawTexture(matrixStack, 90, 58, 0,24, 32, 32);
             this.drawTexture(matrixStack, 120, 58, 33,24, 32, 32);
             this.drawTexture(matrixStack, 150, 58, 66,24, 32, 32);
-            this.drawTexture(matrixStack, 300, 58, 0,192, 64, 64);
+
             //drawSprite()
             // have keybind open complete new inventory with custom textures no more cotton :(
             // also have textures in bottom left and figure out a good gui design
 
+            drawHorizontalLine(matrixStack, 10, 100, 100, 0xFFFFFF);
             RenderSystem.disableBlend();
         }
     }
