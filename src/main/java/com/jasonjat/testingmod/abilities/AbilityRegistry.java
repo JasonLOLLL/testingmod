@@ -14,6 +14,7 @@ public class AbilityRegistry {
         register("teleport", new TeleportAbility());
         register("explode", new ExplodeAbility());
         register("tunnel", new TunnelAbility());
+        register("heal", new HealAbility());
     }
 
     private static void register(String abilityId, Ability ability) {

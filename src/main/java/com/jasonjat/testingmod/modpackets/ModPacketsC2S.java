@@ -4,15 +4,18 @@ import com.jasonjat.testingmod.abilities.Ability;
 import com.jasonjat.testingmod.abilities.AbilityRegistry;
 import com.jasonjat.testingmod.components.ComponentType;
 import com.jasonjat.testingmod.components.MyComponents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -36,14 +39,11 @@ public class ModPacketsC2S {
             World world = serverPlayerEntity.getEntityWorld();
             List<Identifier> idListPlayer = MyComponents.UNLOCKED_ABILITIES.get(serverPlayerEntity).getUnlockedAbilities();
 
-            if (type < 3) {
+            if (type < 4) {
                 useAbility(MyComponents.UNLOCKED_ABILITIES.get(serverPlayerEntity).getUnlockedAbilities().get(type), serverPlayerEntity);
             }
 
             switch (type) {
-                case 3:
-                    serverPlayerEntity.playSound(SoundEvents.ENTITY_FOX_HURT, SoundCategory.AMBIENT, 1f, 1f);
-                    break;
                 case 4:
                     MyComponents.PLAYER_STATS.get(serverPlayerEntity).incrementLevel(-1);
                     MyComponents.syncPlayerComponent(serverPlayerEntity, ComponentType.STATS);

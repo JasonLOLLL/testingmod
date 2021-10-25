@@ -1,6 +1,7 @@
 package com.jasonjat.testingmod.client;
 
 import com.jasonjat.testingmod.modpackets.ModPackets;
+import com.jasonjat.testingmod.screen.SliderChallengeScreen;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,6 +32,18 @@ public class Keybinds {
             "category.testingmod.custombindings"
     ));
 
+    public static KeyBinding keybindOpen = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.testingmod.openbind",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_O,
+            "category.testingmod.custombindings"
+    ));
+
     public static void register() {
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (keybindOpen.wasPressed()) {
+                client.setScreen(new SliderChallengeScreen());
+            }
+        });
     }
 }

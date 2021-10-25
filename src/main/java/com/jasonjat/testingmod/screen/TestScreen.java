@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class TestScreen extends Screen {
+public class TestScreen extends ChallengeScreen {
 
     private static final Identifier WINDOW = new Identifier(Testingmod.MOD_ID, "textures/gui/main/basic_frame.png");
     private final int backgroundWidth = 160;
@@ -63,6 +63,8 @@ public class TestScreen extends Screen {
         wireWidgets.add(addDrawableChild(new WireWidget(200,connectSprites.get(3).y,32,32, Text.of(""), 0, b -> {
             System.out.println("HELLO! BUTTON!");
         })));
+
+
     }
 
     @Override
@@ -128,15 +130,5 @@ public class TestScreen extends Screen {
             }
         }
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
-    }
-
-    @Override
-    public boolean shouldCloseOnEsc() {
-        return true;
-    }
-
-    @Override
-    public boolean isPauseScreen() {
-        return false;
     }
 }
