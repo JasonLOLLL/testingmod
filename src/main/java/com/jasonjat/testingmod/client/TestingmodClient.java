@@ -1,9 +1,7 @@
 package com.jasonjat.testingmod.client;
 
 import com.jasonjat.testingmod.Testingmod;
-import com.jasonjat.testingmod.renderers.EnderArrowEntityRenderer;
-import com.jasonjat.testingmod.renderers.ExplosiveArrowEntityRenderer;
-import com.jasonjat.testingmod.renderers.PenguinEntityRenderer;
+import com.jasonjat.testingmod.renderers.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,6 +16,8 @@ public class TestingmodClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityRendererRegistry.register(Testingmod.EXPLOSIVE_ARROW_ENTITY, ExplosiveArrowEntityRenderer::new);
         EntityRendererRegistry.register(Testingmod.ENDER_ARROW_ENTITY, EnderArrowEntityRenderer::new);
+        EntityRendererRegistry.register(Testingmod.DUCK_ENTITY, DuckEntityRenderer::new);
+        EntityRendererRegistry.register(Testingmod.AMOGUS_ENTITY, AmogusEntityRenderer::new);
 
         Keybinds.register();
 

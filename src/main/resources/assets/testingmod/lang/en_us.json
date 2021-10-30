@@ -8,5 +8,6 @@
   "item.testingmod.miner_pickaxe": "Miner Pickaxe",
   "key.testingmod.cbind": "Select Ability",
   "key.testingmod.usebind": "Use Ability",
-  "category.testingmod.custombindings": "Testingmod Binds"
+  "category.testingmod.custombindings": "Testingmod Binds",
+  "enchantment.testingmod.launch": "Launch"
 }

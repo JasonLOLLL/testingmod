@@ -4,7 +4,6 @@ import com.jasonjat.testingmod.abilities.Ability;
 import com.jasonjat.testingmod.abilities.AbilityRegistry;
 import com.jasonjat.testingmod.components.ComponentType;
 import com.jasonjat.testingmod.components.MyComponents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,8 +12,6 @@ import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -68,6 +65,6 @@ public class ModPacketsC2S {
 
     private static void guiThing(MinecraftServer minecraftServer, ServerPlayerEntity serverPlayerEntity, ServerPlayNetworkHandler serverPlayNetworkHandler, PacketByteBuf packetByteBuf, PacketSender packetSender) {
         PlayerEntity player = (PlayerEntity) serverPlayerEntity;
-        System.out.println(packetByteBuf.readString());
+        serverPlayNetworkHandler.sendPacket(new TitleS2CPacket(Text.of("123")));
     }
 }

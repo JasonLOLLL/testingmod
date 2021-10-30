@@ -1,13 +1,15 @@
 package com.jasonjat.testingmod.screen;
 
 import com.jasonjat.testingmod.Testingmod;
+import com.jasonjat.testingmod.modpackets.ModPackets;
 import com.jasonjat.testingmod.screen.Widgets.PointerWidget;
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -86,6 +88,7 @@ public class SliderChallengeScreen extends ChallengeScreen {
         stop.visible = false;
         pointer.visible = false;
 
+        ClientPlayNetworking.send(ModPackets.GUI_PACKET, new PacketByteBuf(Unpooled.buffer()));
         client.setScreen(null);
     }
 }
